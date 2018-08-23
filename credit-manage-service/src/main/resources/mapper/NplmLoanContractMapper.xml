@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper SYSTEM "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ali.credit.manage.mapper.NplmLoanContractMapper">
+    <resultMap id="nplmLoanContractMap" type="com.ali.credit.bean.NplmLoanContract" autoMapping="true">
+        <id column="id" property="id"></id>
+        <collection property="nplmContractAttributeList" ofType="com.ali.credit.bean.NplmContractAttribute" autoMapping="true">
+            <id property="id" column="id"></id>
+        </collection>
+        <collection property="nplmBorrowerInfoList" ofType="com.ali.credit.bean.NplmBorrowerInfo" autoMapping="true">
+            <id property="id" column="id"></id>
+        </collection>
+    </resultMap>
+    <select id="selectNplmLoanContractList" resultMap="nplmLoanContractMap">
+        SELECT * FROM nplm_loan_contract nlc
+        INNER JOIN nplm_contract_attribute nca
+        ON nca.loan_contract_id=nlc.id
+        INNER JOIN nplm_borrower_info nbi
+        ON nlc.`borrower_id`=nbi.`id`
+    </select>
+
+</mapper>
